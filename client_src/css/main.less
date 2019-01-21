@@ -1,0 +1,50 @@
+#gamewindow {
+	display: grid;
+
+	font-family: Verdana, Geneva, sans-serif;
+	font-size: 16px;
+
+	width: 100vw;
+	height: 100vh;
+
+	grid-template-rows: auto 30px;
+	grid-template-columns: auto 300px;
+
+	grid-template-areas: "c p" "i i";
+
+	#chatwindow {
+		grid-area: c;
+	}
+	#inputwindow {
+		grid-area: i;
+		display: flex;
+
+		#main-text-input {
+			margin: 0px;
+			flex: 1;
+			font-size: 20px;
+			border: 1px solid black;
+		}
+	}
+	#rightwindow {
+		color: white;
+		background-color:#223;
+		grid-area: p;
+		overflow-y: auto;
+		.player-entry {
+			padding:5px;
+			border-bottom: 1px solid grey;
+		}
+	}
+}
+
+body {
+	margin: 0px;
+}
+
+// visibility classes
+
+body:not(.is-gm) .gm-only {display: none;}
+body:not(.is-observer) .observer-only {display: none;}
+body.is-gm .no-gm {display:none;}
+body.is-observer .no-observer {display:none;}

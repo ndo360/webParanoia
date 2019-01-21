@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script src='client.js'></script>
+	<link rel='stylesheet' href='client.css'>
+</head>
+<body>
+	<div id='gamewindow'>
+		<div id='rightwindow'>
+			<div id='global-buttons' class='player-entry'>
+				<div class='gm-only'>
+					<input type='button' value='d6' data-dice="6">
+					<input type='button' value='d10' data-dice="10">
+					<input type='button' value='d20' data-dice="20">
+					<input type='button' value='d100' data-dice="100">
+					<input type='text' id="dice-output" style='width:30px' disabled>
+					<label><input type='checkbox' id='frozen-checkbox'>Freeze Game</label>
+				</div>
+				<div class='no-gm'>
+					<input type='button' class='char-sheet-button' value="Show Character Sheet">
+				</div>
+			</div>
+			<div id='playerslist'></div>
+			<div id='npcslist'></div>
+			<div class='gm-only'>
+				<input type='button' value='Add NPC'>
+			</div>
+		</div>
+		<div id='chatwindow'></div>
+		<div id='inputwindow'>
+			<input type='text' id='main-text-input' maxlength=1024 placeholder="Chat"></input>
+		</div>
+	</div>
+	<div id='uiframes-container'></div>
+</body>
+</html>

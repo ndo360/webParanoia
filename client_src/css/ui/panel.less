@@ -1,0 +1,84 @@
+#uiframes-container {
+	pointer-events: none;
+	position: absolute;
+	top:0px;left:0px;right:0px;bottom:0px;
+	overflow:hidden;
+	text-align: center;
+	.uiframe-container {
+		position: absolute;
+		background: transparent;
+		padding: 8px;
+		pointer-events: auto;
+		.uiframe {
+			position: absolute;
+			background: #111319;
+			font-family: Verdana, Geneva, sans-serif;
+			font-size: 13px;
+			color: white;
+			margin: 7px;
+			box-shadow: 10px 10px 20px rgba(0,0,0,.3);
+			left:0px;top:0px;right:0px;bottom:0px;
+			border: 1px solid #112233;
+			cursor: auto;
+			user-select: none;
+			-moz-user-select: none;
+			-khtml-user-select: none;
+			-webkit-user-select: none;
+			-webkit-touch-callout: none;
+			-o-user-select: none;
+			.uiframe-header {
+				position: absolute;
+				left: 0px;
+				top: 0px;
+				right: 0px;
+				height: 30px;
+				font-size: 16px;
+				color: #ffffcc;
+				overflow: hidden;
+				cursor: default;
+				line-height: 30px;
+				padding-left: 10px;
+				.uiframe-close-button {
+					position: absolute;
+					height: 100%;
+					right: 0px;
+					top: 0px;
+					font-size: 28px;
+					line-height: 30px;
+					margin-right: 4px;
+					&:before {
+						content: "(X)";
+					}
+					&:hover {
+						opacity: 0.7;
+					}
+					&:active {
+						transform: translate(1px,1px);
+					}
+				}
+			}
+			.uiframe-content {
+				position: absolute;
+				left: 0px;
+				top: 30px;
+				right: 0px;
+				bottom: 0px;
+				overflow: auto;
+				padding: 8px;
+				.left-part {
+					text-align: left;
+				}
+				.margins {
+					margin-top: 5px;
+					margin-bottom: 5px;
+				}
+			}
+			&:focus {
+				outline: none;
+			}
+			&:focus-within .uiframe-header {
+				color: #ccccff;
+			}
+		}
+	}
+}

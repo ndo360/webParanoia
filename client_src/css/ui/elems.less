@@ -1,0 +1,33 @@
+input[type=text],input[type=password] {
+	background-color: #234;
+	border:1px solid black;
+	padding:3px;
+	color:white;
+	&:disabled {
+		background-color: #432;
+	}
+}
+
+input[type=button] {
+	background-color: #123;
+	border: 1px solid black;
+	padding:3px;
+	margin: 3px;
+	color:white;
+	&:focus {
+		outline:none;
+	}
+	&:active {
+		transform: translate(1px, 1px);
+	}
+	&:hover {
+		background-color: #234;
+	}
+	&:disabled &:disabled:hover &:disabled:active {
+		background-color: #321;
+	}
+}
+
+label {
+	font-size: 12px;
+}
