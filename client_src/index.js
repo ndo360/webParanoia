@@ -3,6 +3,7 @@
 const LoginPanel = require('./lib/login_panel.js');
 const PromptPanel = require('./lib/prompt_panel.js');
 const CharacterSheetPanel = require('./lib/character_sheet_panel.js');
+const AdvancedSpoofPanel = require('./lib/advanced_spoof.js');
 
 class Client {
 	constructor() {
@@ -119,6 +120,9 @@ class Client {
 						return;
 					this.socket.send(JSON.stringify({spoof: {victim: playernum, text: val}}));
 				});
+			}
+			if (input.classList.contains("advanced-spoof-button")) {
+				new AdvancedSpoofPanel(this);
 			}
 			if(input.classList.contains("char-sheet-button") && !this.char_sheet_panel) {
 				this.char_sheet_panel = new CharacterSheetPanel(this, false);

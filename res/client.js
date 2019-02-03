@@ -4,6 +4,7 @@
 const LoginPanel = require('./lib/login_panel.js');
 const PromptPanel = require('./lib/prompt_panel.js');
 const CharacterSheetPanel = require('./lib/character_sheet_panel.js');
+const AdvancedSpoofPanel = require('./lib/advanced_spoof.js');
 
 class Client {
 	constructor() {
@@ -121,6 +122,9 @@ class Client {
 					this.socket.send(JSON.stringify({spoof: {victim: playernum, text: val}}));
 				});
 			}
+			if (input.classList.contains("advanced-spoof-button")) {
+				new AdvancedSpoofPanel(this);
+			}
 			if(input.classList.contains("char-sheet-button") && !this.char_sheet_panel) {
 				this.char_sheet_panel = new CharacterSheetPanel(this, false);
 				this.char_sheet_panel.update_data(this.character_sheet);
@@ -190,7 +194,59 @@ window.addEventListener("DOMContentLoaded", () => {
 	window.client = new Client();
 });
 
-},{"./lib/character_sheet_panel.js":2,"./lib/login_panel.js":3,"./lib/prompt_panel.js":5}],2:[function(require,module,exports){
+},{"./lib/advanced_spoof.js":2,"./lib/character_sheet_panel.js":3,"./lib/login_panel.js":4,"./lib/prompt_panel.js":6}],2:[function(require,module,exports){
+'use strict';
+const Panel = require('./panel.js');
+
+class AdvancedSpoofPanel extends Panel {
+	constructor(client) {
+		super({width: 400, height: 140, title: "Advanced Spoofing"});
+		this.client = client;
+		this.content_obj.innerHTML = `
+<div><select class='spoof_from'></select> -> <select class='spoof_to'><option value='' selected>ALL</option></select></div>
+<input style='width:90%' type='text' class='prompt-value'></input>
+<input type='button' class='confirm-button' value='Send'>
+`;
+		for(let playernum of Object.keys(client.player_names)) {
+			if(playernum == "-1")
+				continue;
+			let player_name = client.player_names[playernum];
+			let elema = document.createElement("option");
+			elema.value = playernum;
+			elema.textContent = player_name;
+			let elemb = document.createElement("option");
+			elemb.value = playernum;
+			elemb.textContent = player_name;
+			this.$('.spoof_from').appendChild(elema);
+			this.$('.spoof_to').appendChild(elemb);
+		}
+		this.return_val = null;
+		this.$('.confirm-button').addEventListener("click", () => {
+			this.send();
+		});
+		this.$('.prompt-value').addEventListener("keydown", (e) => {
+			if(e.which == 13) { // enter
+				e.preventDefault();
+				this.send();
+			}
+		});
+		this.$('.prompt-value').focus();
+	}
+
+	send() {
+		let text = this.$('.prompt-value').value;
+		let from = this.$('.spoof_from').value;
+		let to = this.$('.spoof_to').value;
+		from = from == "" ? null : +from;
+		to = to == "" ? null : +to;
+		this.client.socket.send(JSON.stringify({spoof: {victim: from, pm_to: to, text: text}}));
+		this.$('.prompt-value').value = "";
+	}
+}
+
+module.exports = AdvancedSpoofPanel;
+
+},{"./panel.js":5}],3:[function(require,module,exports){
 'use strict';
 const Panel = require('./panel.js');
 
@@ -297,7 +353,7 @@ function string_wrapper(obj) { // prevents things like "undefined" and "null" sh
 
 module.exports = CharacterSheetPanel;
 
-},{"./panel.js":4}],3:[function(require,module,exports){
+},{"./panel.js":5}],4:[function(require,module,exports){
 'use strict';
 const Panel = require('./panel.js');
 
@@ -374,7 +430,7 @@ class LoginPanel extends Panel {
 
 module.exports = LoginPanel;
 
-},{"./panel.js":4}],4:[function(require,module,exports){
+},{"./panel.js":5}],5:[function(require,module,exports){
 'use strict';
 
 class Panel {
@@ -559,7 +615,7 @@ class Panel {
 
 module.exports = Panel;
 
-},{}],5:[function(require,module,exports){
+},{}],6:[function(require,module,exports){
 'use strict';
 const Panel = require('./panel.js');
 
@@ -593,6 +649,6 @@ class PromptPanel extends Panel {
 
 module.exports = PromptPanel;
 
-},{"./panel.js":4}]},{},[1])
+},{"./panel.js":5}]},{},[1])
 
 //# sourceMappingURL=client.js.map
