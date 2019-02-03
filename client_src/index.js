@@ -88,8 +88,8 @@ class Client {
 		}
 		if(obj.character_sheet) {
 			this.character_sheet = obj.character_sheet;
-			if(this.character_sheet_panel)
-				this.character_sheet_panel.update_data(this.character_sheet);
+			if(this.char_sheet_panel)
+				this.char_sheet_panel.update_data(this.character_sheet);
 		}
 		if(obj.character_sheets) {
 			Object.assign(this.character_sheets, obj.character_sheets);
