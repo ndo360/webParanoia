@@ -1,9 +1,27 @@
 [data-csfield] {
 	min-width: 50px;
-	display: inline-block;
+	span& {
+		display: inline-block;
+	}
 	text-align: left;
 	color: lightgrey;
 	&[contenteditable="true"] {
 		background-color: #123;
+	}
+}
+
+.skill-header {
+	border-bottom: 2px solid black;
+	border-right: 2px solid black;
+	font-weight:bold;
+	span {
+		float:right;
+	}
+}
+
+.skill-entry {
+	border-left: 2px solid black;
+	td {
+		border-bottom: 1px solid black;
 	}
 }
