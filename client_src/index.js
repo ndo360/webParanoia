@@ -2,6 +2,7 @@
 
 const LoginPanel = require('./lib/login_panel.js');
 const PromptPanel = require('./lib/prompt_panel.js');
+const AddCharacterPanel = require('./lib/add_character_panel.js');
 const CharacterSheetPanel = require('./lib/character_sheet_panel.js');
 const AdvancedSpoofPanel = require('./lib/advanced_spoof.js');
 
@@ -131,6 +132,9 @@ class Client {
 				this.char_sheet_panel.wait_until_close().then(() => {
 					this.char_sheet_panel = null;
 				});
+			}
+			if (input.classList.contains("add-char-button")) {
+				new AddCharacterPanel(this);
 			}
 			if(input.classList.contains("edit-char-button") && playernum && !this.char_sheet_panels[playernum]) {
 				this.char_sheet_panels[playernum] = new CharacterSheetPanel(this, true, playernum);
