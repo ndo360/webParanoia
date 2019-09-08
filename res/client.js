@@ -3,6 +3,7 @@
 
 const LoginPanel = require('./lib/login_panel.js');
 const PromptPanel = require('./lib/prompt_panel.js');
+const AddCharacterPanel = require('./lib/add_character_panel.js');
 const CharacterSheetPanel = require('./lib/character_sheet_panel.js');
 const AdvancedSpoofPanel = require('./lib/advanced_spoof.js');
 
@@ -133,6 +134,9 @@ class Client {
 					this.char_sheet_panel = null;
 				});
 			}
+			if (input.classList.contains("add-char-button")) {
+				new AddCharacterPanel(this);
+			}
 			if(input.classList.contains("edit-char-button") && playernum && !this.char_sheet_panels[playernum]) {
 				this.char_sheet_panels[playernum] = new CharacterSheetPanel(this, true, playernum);
 				this.char_sheet_panels[playernum].update_data(this.character_sheets[playernum]);
@@ -194,7 +198,49 @@ window.addEventListener("DOMContentLoaded", () => {
 	window.client = new Client();
 });
 
-},{"./lib/advanced_spoof.js":2,"./lib/character_sheet_panel.js":3,"./lib/login_panel.js":4,"./lib/prompt_panel.js":6}],2:[function(require,module,exports){
+},{"./lib/add_character_panel.js":2,"./lib/advanced_spoof.js":3,"./lib/character_sheet_panel.js":4,"./lib/login_panel.js":5,"./lib/prompt_panel.js":7}],2:[function(require,module,exports){
+'use strict';
+const Panel = require('./panel.js');
+const character_templates = require('../../data/character_templates.json')
+
+class AddCharacterPanel extends Panel {
+    constructor(client) {
+        super({ width: 400, height: 140, title: "Add Character" });
+        this.client = client;
+        this.content_obj.innerHTML = `
+<div><select class='charsheet_list'><option value='all' selected>ALL</option></select></div>
+<input type='button' class='confirm-button' value='Load'>
+`;
+        this.populate_list();
+        this.return_val = null;
+        this.$('.confirm-button').addEventListener("click", () => {
+            this.send();
+        });
+    }
+
+    populate_list() {
+        for (let i = 0; i < character_templates.characters.length; i++) {
+            let elem = document.createElement("option");
+            elem.value = character_templates.characters[i].name;
+            elem.textContent = elem.value; //TODO: Make this code suck less?
+            this.$('.charsheet_list').appendChild(elem);
+        }
+    }
+
+    send() {
+        let character = this.$('.charsheet_list').value;
+        if (character == 'all') //I'm sorry //TODO: Make this code suck less?
+            for (let i = 0; i < character_templates.characters.length; i++) {
+                let all_chars = character_templates.characters[i].name;
+                this.client.socket.send(JSON.stringify({add_character: all_chars}));
+            }
+        else
+            this.client.socket.send(JSON.stringify({add_character: character}));
+    }
+}
+
+module.exports = AddCharacterPanel;
+},{"../../data/character_templates.json":8,"./panel.js":6}],3:[function(require,module,exports){
 'use strict';
 const Panel = require('./panel.js');
 
@@ -246,7 +292,7 @@ class AdvancedSpoofPanel extends Panel {
 
 module.exports = AdvancedSpoofPanel;
 
-},{"./panel.js":5}],3:[function(require,module,exports){
+},{"./panel.js":6}],4:[function(require,module,exports){
 'use strict';
 const Panel = require('./panel.js');
 
@@ -679,7 +725,7 @@ function string_wrapper(obj) { // prevents things like "undefined" and "null" sh
 
 module.exports = CharacterSheetPanel;
 
-},{"./panel.js":5}],4:[function(require,module,exports){
+},{"./panel.js":6}],5:[function(require,module,exports){
 'use strict';
 const Panel = require('./panel.js');
 
@@ -756,7 +802,7 @@ class LoginPanel extends Panel {
 
 module.exports = LoginPanel;
 
-},{"./panel.js":5}],5:[function(require,module,exports){
+},{"./panel.js":6}],6:[function(require,module,exports){
 'use strict';
 
 class Panel {
@@ -941,7 +987,7 @@ class Panel {
 
 module.exports = Panel;
 
-},{}],6:[function(require,module,exports){
+},{}],7:[function(require,module,exports){
 'use strict';
 const Panel = require('./panel.js');
 
@@ -975,6 +1021,33 @@ class PromptPanel extends Panel {
 
 module.exports = PromptPanel;
 
-},{"./panel.js":5}]},{},[1])
+},{"./panel.js":6}],8:[function(require,module,exports){
+module.exports={
+	"characters": [
+		{
+			"name": "Conn-R-HSN-1"
+		},
+		{
+			"name": "Douglas-R-YEE-1"
+		},
+		{
+			"name": "John-R-SVN-1"
+		},
+		{
+			"name": "Kym-R-AHI-1"
+		},
+		{
+			"name": "Morgan-R-DNR-1"
+		},
+		{
+			"name": "Pat-R-SWF-1"
+		},
+		{
+			"name": "Bob-R-EGH-1"
+		},
+		
+	]
+}
+},{}]},{},[1])
 
 //# sourceMappingURL=client.js.map
