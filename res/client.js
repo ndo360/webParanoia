@@ -298,7 +298,7 @@ const Panel = require('./panel.js');
 
 class CharacterSheetPanel extends Panel {
 	constructor(client, edit_mode = true, playernum) {
-		super({width: 655, height: 800, title:"Character Sheet"});
+		super({width: 750, height: 900, title:"Character Sheet"});
 		this.client = client;
 		this.playernum = playernum;
 		this.content_obj.innerHTML =`
@@ -313,14 +313,23 @@ class CharacterSheetPanel extends Panel {
 		<tr>
 			<td><b>MBD: </b></td>
 			<td><label><input type='checkbox' data-csfield="mbd1">Team Leader</label></td>
-			<td><label><input type='checkbox' data-csfield="mbd3">Loyalty Officer</label></td>
-			<td><label><input type='checkbox' data-csfield="mbd5">Hygiene Officer</label></td>
+			<td><label><input type='checkbox' data-csfield="mbd2">Loyalty Officer</label></td>
+			<td><label><input type='checkbox' data-csfield="mbd3">Hygiene Officer</label></td>
+			<td><label><input type='checkbox' data-csfield="mbd4">Ads & Branding</label></td>
 		</tr>
 		<tr>
 			<td></td>
-			<td><label><input type='checkbox' data-csfield="mbd2">C&RO</label></td>
-			<td><label><input type='checkbox' data-csfield="mbd4">Equipment Guy</label></td>
-			<td><label><input type='checkbox' data-csfield="mbd6">Happiness Officer</label></td>
+			<td><label><input type='checkbox' data-csfield="mbd5">C&RO</label></td>
+			<td><label><input type='checkbox' data-csfield="mbd6">Equipment Guy</label></td>
+			<td><label><input type='checkbox' data-csfield="mbd7">Happiness Officer</label></td>
+			<td><label><input type='checkbox' data-csfield="mbd8">Agent Provocateur</label></td>
+		</tr>
+		<tr>
+			<td></td>
+			<td><label><input type='checkbox' data-csfield="mbd9">Alertness Officer</label></td>
+			<td><label><input type='checkbox' data-csfield="mbd10">Financial Officer</label></td>
+			<td><label><input type='checkbox' data-csfield="mbd11">Medical Officer</label></td>
+			<td><label><input type='checkbox' data-csfield="mbd12">Public Relations</label></td>
 		</tr>
 		<tr>
 			<td></td>
