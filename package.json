@@ -11,7 +11,7 @@
     "finalhandler": "^1.1.1",
     "serve-static": "^1.13.2",
     "underscore": "^1.9.1",
-    "ws": "^6.1.2"
+    "ws": "^7.4.6"
   },
   "devDependencies": {
     "browserify": "^16.2.3",
